@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 public class MotoInventoryController {
@@ -78,8 +75,8 @@ public class MotoInventoryController {
 
     @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> getVehicleInformation(@PathVariable("vin") String vin){
-        client.lookUpVehicle();
-        return null;
+    public HashMap<String, Object> getVehicleInformation(@PathVariable("vin") String vin){
+        HashMap<String, Object> vehicle = (HashMap<String, Object>) client.lookUpVehicle();
+        return vehicle;
     }
 }
