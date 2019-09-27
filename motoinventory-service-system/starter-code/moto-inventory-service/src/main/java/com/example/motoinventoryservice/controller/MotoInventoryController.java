@@ -22,8 +22,6 @@ public class MotoInventoryController {
     @RequestMapping(value = "/motorcycles", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Motorcycle createMotorcycle(@RequestBody @Valid Motorcycle motorcycle) {
-
-
         return motoDao.addMotorcycle(motorcycle);
     }
 
