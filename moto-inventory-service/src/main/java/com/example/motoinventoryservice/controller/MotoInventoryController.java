@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import java.util.Random;
 
 @RestController
+@RefreshScope
 public class MotoInventoryController {
 
     @RequestMapping(value = "/motorcycles", method = RequestMethod.POST)
@@ -24,17 +25,17 @@ public class MotoInventoryController {
     @ResponseStatus(value = HttpStatus.OK)
     public Motorcycle getMotorcycle(@PathVariable int motoId) {
         if (motoId < 1) {
-           throw new IllegalArgumentException("MotoId must be greater than 0.");
-        }
-
-        Motorcycle moto = new Motorcycle();
-        moto.setId(motoId);
-        moto.setVin("54321");
-        moto.setMake("Ducati");
+           throw new IllegalArgumentException("MotoId must .setMake("Ducati");
         moto.setModel("Multistrada Enduro");
         moto.setYear("2018");
         moto.setColor("Red");
+        be greater than 0.");
+    }
 
+    Motorcycle moto = new Motorcycle();
+        moto.setId(motoId);
+        moto.setVin("54321");
+    moto
         return moto;
     }
 
@@ -55,5 +56,18 @@ public class MotoInventoryController {
 
         // do nothing here - in a real application we would update the entry in the backing data store
 
+    }
+
+    @Autowired
+    private final VinLookupClient client;
+
+    MotoInventoryController(VinLookupClient client){
+        this.client = client;
+    }
+
+    @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, Vehicle> getVehicleInformation(@PathVariable("vin") String vin){
+        return client.lookUpVehicle;
     }
 }
