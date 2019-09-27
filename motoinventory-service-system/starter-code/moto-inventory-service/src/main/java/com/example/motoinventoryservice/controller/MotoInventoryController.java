@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -15,12 +17,20 @@ public class MotoInventoryController {
     @Autowired
     MotoInventoryDao motoDao;
 
+    private List<Motorcycle> motorcycles = new ArrayList<>();
+
     @RequestMapping(value = "/motorcycles", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Motorcycle createMotorcycle(@RequestBody @Valid Motorcycle motorcycle) {
 
 
         return motoDao.addMotorcycle(motorcycle);
+    }
+
+    @RequestMapping(value = "/motorcycles", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Motorcycle> getAllMotorcycle(){
+        return motoDao.getAllMotorcycles();
     }
 
     @RequestMapping(value = "/motorcycles/{motoId}", method = RequestMethod.GET)
@@ -31,6 +41,12 @@ public class MotoInventoryController {
         }
 
         return motoDao.getMotorcycle(motoId);
+    }
+
+    @RequestMapping(value = "/motorcycles/make/{make}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Motorcycle> getMotorcycleByMake(@PathVariable String make){
+        return motoDao.getMotorcyclesByMake(make);
     }
 
     @RequestMapping(value = "/motorcycles/{motoId}", method = RequestMethod.DELETE)
