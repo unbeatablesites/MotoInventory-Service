@@ -2,14 +2,13 @@ package com.example.motoinventoryservice.controller;
 
 import com.example.motoinventoryservice.dao.MotoInventoryDao;
 import com.example.motoinventoryservice.model.Motorcycle;
+import com.example.motoinventoryservice.util.feign.VinLookupClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 public class MotoInventoryController {
@@ -63,5 +62,19 @@ public class MotoInventoryController {
 
         // do nothing here - in a real application we would update the entry in the backing data store
 
+    }
+
+    @Autowired
+    private final VinLookupClient client;
+
+    MotoInventoryController(VinLookupClient client){
+        this.client = client;
+    }
+
+    @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public HashMap<String, Object> getVehicleInformation(@PathVariable("vin") String vin){
+        HashMap<String, Object> vehicle = (HashMap<String, Object>) client.lookUpVehicle();
+        return vehicle;
     }
 }
