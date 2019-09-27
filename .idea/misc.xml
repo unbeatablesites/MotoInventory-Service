@@ -4,6 +4,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/motoinventory-service-system/starter-code/moto-inventory-service/pom.xml" />
+        <option value="$PROJECT_DIR$/motoinventory-service-system/starter-code/vin-lookup/pom.xml" />
+        <option value="$PROJECT_DIR$/moto-inventory-service-registry/pom.xml" />
+        <option value="$PROJECT_DIR$/moto-inventory-config-server/pom.xml" />
       </list>
     </option>
   </component>
