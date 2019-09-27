@@ -3,7 +3,7 @@ use moto_inventory;
 
 create table if not exists motorcycle (
 	id int not null auto_increment primary key,
-    vin varchar(20) not null,
+    vin varchar(5) not null,
     make varchar(20) not null,
     model varchar(20) not null,
     year varchar(4) not null,
