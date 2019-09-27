@@ -16,7 +16,7 @@ public class MotoInventoryDaoJdbcTemplateImpl implements MotoInventoryDao {
 
     // Prepared statement strings
     private static final String INSERT_MOTO_SQL =
-            "insert into motorcycle (vin, make, model, year, color) values (?, ?, ?, ? ?)";
+            "insert into motorcycle (vin, make, model, year, color) values (?, ?, ?, ?, ?)";
 
     private static final String SELECT_MOTO_SQL =
             "select * from motorcycle where id = ?";
@@ -36,22 +36,19 @@ public class MotoInventoryDaoJdbcTemplateImpl implements MotoInventoryDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public MotoInventoryDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
-
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    public MotoInventoryDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
     @Override
     public Motorcycle getMotorcycle(int id) {
 
-       try {
+        try {
 
-           return jdbcTemplate.queryForObject(SELECT_MOTO_SQL, this::mapRowToMotorcycle, id);
+            return jdbcTemplate.queryForObject(SELECT_MOTO_SQL, this::mapRowToMotorcycle, id);
 
-       } catch (EmptyResultDataAccessException e) {
-           // if nothing is returned just catch the exception and return null
-           return null;
-       }
+        } catch (EmptyResultDataAccessException e) {
+            // if nothing is returned just catch the exception and return null
+            return null;
+        }
 
     }
 
@@ -108,9 +105,9 @@ public class MotoInventoryDaoJdbcTemplateImpl implements MotoInventoryDao {
     private Motorcycle mapRowToMotorcycle(ResultSet rs, int rowNum) throws SQLException {
         Motorcycle moto = new Motorcycle();
         moto.setId(rs.getInt("id"));
+        moto.setVin(rs.getString("vin"));
         moto.setMake(rs.getString("make"));
         moto.setModel(rs.getString("model"));
-        moto.setVin(rs.getString("vin"));
         moto.setYear(rs.getString("year"));
         moto.setColor(rs.getString("color"));
 
