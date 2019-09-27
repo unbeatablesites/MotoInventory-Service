@@ -74,7 +74,7 @@ public class MotoInventoryController {
     @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public HashMap<String, Object> getVehicleInformation(@PathVariable("vin") String vin){
-        HashMap<String, Object> vehicle = (HashMap<String, Object>) client.lookUpVehicle();
+        HashMap<String, Object> vehicle = (HashMap<String, Object>) client.lookUpVehicle(vin);
         return vehicle;
     }
 }
